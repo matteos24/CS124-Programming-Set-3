@@ -83,6 +83,7 @@ int64_t hill_climbing(int64_t *arr, int n, int max_iter) {
   int64_t test_residue;
 
   for (int i = 0; i < max_iter; i++) {
+    memcpy(sol1, sol, n * sizeof(int));
     int index1 = rand() % n;
     int index2 = rand() % n;
 
@@ -96,9 +97,6 @@ int64_t hill_climbing(int64_t *arr, int n, int max_iter) {
       residue = test_residue;
       sol[index1] = sol1[index1];
       sol[index2] = sol1[index2];
-    } else {
-      sol1[index1] = sol[index1];
-      sol1[index2] = sol[index2];
     }
   }
 
@@ -131,6 +129,8 @@ int64_t simulated_annealing(int64_t *arr, int n, int max_iter) {
   int64_t test_residue_new2;
 
   for (int i = 0; i < max_iter; i++) {
+    memcpy(sol1, sol, n * sizeof(int));
+    memcpy(sol2, sol, n * sizeof(int));
     int index1 = rand() % (n);
     int index2 = rand() % (n);
 
@@ -149,18 +149,11 @@ int64_t simulated_annealing(int64_t *arr, int n, int max_iter) {
       residue = test_residue;
       sol[index1] = sol1[index1];
       sol[index2] = sol1[index2];
-    } else {
-      sol1[index1] = sol[index1];
-      sol1[index2] = sol[index2];
     }
-
     residue = labs(dot_product(arr, sol, n));
     test_residue_new2 = labs(dot_product(arr, sol2, n));
 
     if (residue < test_residue_new2) {
-      sol2[index1] = sol[index1];
-      sol2[index2] = sol[index2];
-    } else {
       sol2[index1] = sol[index1];
       sol2[index2] = sol[index2];
     }
@@ -216,6 +209,7 @@ int64_t pre_partition_hill_climbing(int64_t *arr, int n, int max_iter) {
   int64_t *second_converted_array = malloc(n * sizeof(int64_t));
 
   for (int i = 0; i < max_iter; i++) {
+    memcpy(sol1, sol, n * sizeof(int));
     index1 = (rand() % (n));
     index2 = (rand() % (n));
 
@@ -250,9 +244,9 @@ int64_t pre_partition_simulated_annealing(int64_t *arr, int n, int max_iter) {
 
   for (int j = 0; j < n; j++) {
     sol[j] = (rand() % (n));
-    sol1[j] = sol[j];
-    sol2[j] = sol[j];
   }
+  memcpy(sol1, sol, n * sizeof(int));
+  memcpy(sol2, sol, n * sizeof(int));
 
   int64_t *converted_array = conversion(sol, arr, n);
   int64_t residue = karmakar_karp(converted_array, n);
@@ -262,6 +256,8 @@ int64_t pre_partition_simulated_annealing(int64_t *arr, int n, int max_iter) {
   int64_t *third_converted_array = malloc(n * sizeof(int64_t));
 
   for (int i = 0; i < max_iter; i++) {
+    memcpy(sol1, sol, n * sizeof(int));
+    memcpy(sol2, sol, n * sizeof(int));
     index1 = (rand() % (n));
     index2 = (rand() % (n));
 
