@@ -15,12 +15,12 @@ CFLAGS = -Wall -g
 
 # Source files
 
-SRCS = algorithms.c max_heap.c
+SRCS = main.c algorithms.c max_heap.c
 
 
 # Header files
 
-HDRS = max_heap.h
+HDRS = algorithms.h max_heap.h
 
 
 # Object files
@@ -30,7 +30,7 @@ OBJS = $(SRCS:.c=.o)
 
 # Executable name
 
-EXEC = algorithms
+EXEC = partition
 
 
 # Default target

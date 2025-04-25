@@ -133,10 +133,10 @@ int64_t karmakar_karp(int64_t *arr, int n) {
   while (heap->size > 1) {
     int64_t x = extractMax(heap);
     int64_t y = extractMax(heap);
-    insert(heap, x - y);
+    insert(heap, labs(x - y));
   }
 
-  int64_t result = peekMax(heap);
+  int64_t result = labs(peekMax(heap));
   freeHeap(heap);
   return result;
 }
@@ -154,7 +154,7 @@ int64_t repeated_random(int64_t *arr, int n, int max_iter) {
     }
   }
 
-  int64_t residue = llabs(dot_product(arr, sol, n));
+  int64_t residue = labs(dot_product(arr, sol, n));
   int64_t test_residue;
 
   for (int i = 0; i < max_iter; i++) {
@@ -167,7 +167,7 @@ int64_t repeated_random(int64_t *arr, int n, int max_iter) {
       }
     }
 
-    test_residue = llabs(dot_product(arr, sol, n));
+    test_residue = labs(dot_product(arr, sol, n));
     if (test_residue < residue) {
       residue = test_residue;
     }
@@ -192,7 +192,7 @@ int64_t hill_climbing(int64_t *arr, int n, int max_iter) {
     sol1[j] = sol[j];
   }
 
-  int64_t residue = llabs(dot_product(arr, sol, n));
+  int64_t residue = labs(dot_product(arr, sol, n));
   int64_t test_residue;
 
   for (int i = 0; i < max_iter; i++) {
@@ -204,7 +204,7 @@ int64_t hill_climbing(int64_t *arr, int n, int max_iter) {
       sol1[index2] = -sol[index2];
     }
 
-    test_residue = llabs(dot_product(arr, sol1, n));
+    test_residue = labs(dot_product(arr, sol1, n));
     if (test_residue < residue) {
       residue = test_residue;
       sol[index1] = sol1[index1];
@@ -235,7 +235,7 @@ int64_t simulated_annealing(int64_t *arr, int n, int max_iter) {
     sol2[j] = sol[j];
   }
 
-  int64_t residue = llabs(dot_product(arr, sol, n));
+  int64_t residue = labs(dot_product(arr, sol, n));
   int64_t test_residue;
   int64_t test_residue_new;
   int64_t test_residue_new2;
@@ -249,7 +249,7 @@ int64_t simulated_annealing(int64_t *arr, int n, int max_iter) {
       sol1[index2] = -sol[index2];
     }
 
-    test_residue = llabs(dot_product(arr, sol1, n));
+    test_residue = labs(dot_product(arr, sol1, n));
     if (test_residue < residue) {
       residue = test_residue;
       sol[index1] = sol1[index1];
@@ -261,8 +261,8 @@ int64_t simulated_annealing(int64_t *arr, int n, int max_iter) {
       sol[index2] = sol1[index2];
     }
 
-    residue = llabs(dot_product(arr, sol, n));
-    test_residue_new2 = llabs(dot_product(arr, sol2, n));
+    residue = labs(dot_product(arr, sol, n));
+    test_residue_new2 = labs(dot_product(arr, sol2, n));
 
     if (residue < test_residue_new2) {
       sol2[index1] = sol[index1];
@@ -270,7 +270,7 @@ int64_t simulated_annealing(int64_t *arr, int n, int max_iter) {
     }
   }
 
-  test_residue_new2 = llabs(dot_product(arr, sol2, n));
+  test_residue_new2 = labs(dot_product(arr, sol2, n));
   free(sol);
   free(sol1);
   free(sol2);
