@@ -83,8 +83,8 @@ int64_t hill_climbing(int64_t *arr, int n, int max_iter) {
   int64_t test_residue;
 
   for (int i = 0; i < max_iter; i++) {
-    int index1 = rand() % (n - 1) + 1;
-    int index2 = rand() % (n - 1) + 1;
+    int index1 = rand() % n;
+    int index2 = rand() % n;
 
     sol1[index1] = -sol[index1];
     if ((float)rand() / (float)RAND_MAX >= 0.5) {
@@ -96,6 +96,9 @@ int64_t hill_climbing(int64_t *arr, int n, int max_iter) {
       residue = test_residue;
       sol[index1] = sol1[index1];
       sol[index2] = sol1[index2];
+    } else {
+      sol1[index1] = sol[index1];
+      sol1[index2] = sol[index2];
     }
   }
 
@@ -146,12 +149,18 @@ int64_t simulated_annealing(int64_t *arr, int n, int max_iter) {
       residue = test_residue;
       sol[index1] = sol1[index1];
       sol[index2] = sol1[index2];
+    } else {
+      sol1[index1] = sol[index1];
+      sol1[index2] = sol[index2];
     }
 
     residue = labs(dot_product(arr, sol, n));
     test_residue_new2 = labs(dot_product(arr, sol2, n));
 
     if (residue < test_residue_new2) {
+      sol2[index1] = sol[index1];
+      sol2[index2] = sol[index2];
+    } else {
       sol2[index1] = sol[index1];
       sol2[index2] = sol[index2];
     }
