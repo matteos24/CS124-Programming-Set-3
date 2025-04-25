@@ -20,7 +20,7 @@ SRCS = algorithms.c max_heap.c
 
 # Header files
 
-HDRS = algorithms.h max_heap.h
+HDRS = main.c algorithms.h max_heap.h
 
 
 # Object files
@@ -30,7 +30,7 @@ OBJS = $(SRCS:.c=.o)
 
 # Executable name
 
-EXEC = algorithms
+EXEC = partition 
 
 
 # Default target
