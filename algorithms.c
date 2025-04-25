@@ -28,7 +28,6 @@ double probability(int64_t residue1, int64_t residue2, int iter);
 int main(void)
 {   
     srand(time(NULL));
-    int n;
     printf("%i", RAND_MAX);
 
 }
