@@ -28,7 +28,6 @@ int64_t karmakar_karp(int64_t *arr, int n) {
   for (int i = 0; i < n; i++) {
     insert(heap, arr[i]);
   }
-
   while (heap->size > 1) {
     int64_t x = extractMax(heap);
     int64_t y = extractMax(heap);
