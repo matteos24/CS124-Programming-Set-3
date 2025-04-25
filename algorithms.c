@@ -105,16 +105,20 @@ int main(void) {
 
         for (int k = 0; k < 7; k++) 
         {
-            fprintf(runtime_file, "%lld", runtime_array[k]);
+            fprintf(runtime_file, "%f", runtime_array[k]);
             if (k != 6) fprintf(runtime_file, ",");
         }
         fprintf(runtime_file, "\n");
+        fflush(results_file);
+        fflush(runtime_file);
 
     }
 
     fclose(results_file);
     fclose(runtime_file);
     free(test_array);
+    free(result_array);
+    free(runtime_array);
 
 
 
