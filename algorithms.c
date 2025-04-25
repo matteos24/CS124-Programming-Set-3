@@ -146,7 +146,7 @@ int64_t karmakar_karp(int64_t *arr, int n) {
   }
   int  i = 0;
   while (heap->size > 1) {
-    printf("%d - %lld\n",i,heap->size);
+    printf("%d - %ld\n",i,heap->size);
     i++;
     if(i > 200){
         exit(1);
@@ -154,7 +154,7 @@ int64_t karmakar_karp(int64_t *arr, int n) {
     }
     int64_t x = extractMax(heap);
     int64_t y = extractMax(heap);
-    insert(heap, labs(x - y));
+    insert(heap, llabs(x - y));
   }
 
   int64_t result = labs(peekMax(heap));
