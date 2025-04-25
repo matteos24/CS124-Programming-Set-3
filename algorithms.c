@@ -42,59 +42,70 @@ int main(void) {
 
     for (int i = 0; i < 50; i++)
     {
+        printf("This is iteration %i\n", i);
         for (int j = 0; j < 100; j++)
         {
+            
             test_array[j] = random_1_to_10_12();
         }
 
         start = clock();
+        printf("This is iteration %i\n", i);
         result = karmakar_karp(test_array, 100);
+        printf("This is iteration %i\n", i);
         end = clock();
         elapsed_time = (double) (end - start) / CLOCKS_PER_SEC;
         result_array[0] = result;
         runtime_array[0] = elapsed_time;
+        printf("This is iteration %i\n", i);
 
         start = clock();
-        result = repeated_random(test_array, 100, 100000);
+        result = repeated_random(test_array, 100, 25000);
         end = clock();
         elapsed_time = (double) (end - start) / CLOCKS_PER_SEC;
         result_array[1] = result;
         runtime_array[1] = elapsed_time;
+        printf("This is iteration %i\n", i);
 
         start = clock();
-        result = hill_climbing(test_array, 100, 100000);
+        result = hill_climbing(test_array, 100, 25000);
         end = clock();
         elapsed_time = (double) (end - start) / CLOCKS_PER_SEC;
         result_array[2] = result;
         runtime_array[2] = elapsed_time;
+        printf("This is iteration %i\n", i);
 
         start = clock();
-        result = simulated_annealing(test_array, 100,100000);
+        result = simulated_annealing(test_array, 100,25000);
         end = clock();
         elapsed_time = (double) (end - start) / CLOCKS_PER_SEC;
         result_array[3] = result;
         runtime_array[3] = elapsed_time;
+        printf("This is iteration %i\n", i);
 
         start = clock();
-        result = pre_partition_repeated_random(test_array, 100,100000);
+        result = pre_partition_repeated_random(test_array, 100,25000);
         end = clock();
         elapsed_time = (double) (end - start) / CLOCKS_PER_SEC;
         result_array[4] = result;
         runtime_array[4] = elapsed_time;
+        printf("This is iteration %i\n", i);
 
         start = clock();
-        result = pre_partition_hill_climbing(test_array, 100,100000);
+        result = pre_partition_hill_climbing(test_array, 100,25000);
         end = clock();
         elapsed_time = (double) (end - start) / CLOCKS_PER_SEC;
         result_array[5] = result;
         runtime_array[5] = elapsed_time;
+        printf("This is iteration %i\n", i);
 
         start = clock();
-        result = pre_partition_simulated_annealing(test_array, 100,100000);
+        result = pre_partition_simulated_annealing(test_array, 100,25000);
         end = clock();
         elapsed_time = (double) (end - start) / CLOCKS_PER_SEC;
         result_array[6] = result;
         runtime_array[6] = elapsed_time;
+        printf("This is iteration %i\n", i);
 
         for (int k = 0; k < 7; k++) 
         {
@@ -133,8 +144,14 @@ int64_t karmakar_karp(int64_t *arr, int n) {
   for (int i = 0; i < n; i++) {
     insert(heap, arr[i]);
   }
-
+  int  i = 0;
   while (heap->size > 1) {
+    printf("%d - %lld\n",i,heap->size);
+    i++;
+    if(i > 200){
+        exit(1);
+        return 0;
+    }
     int64_t x = extractMax(heap);
     int64_t y = extractMax(heap);
     insert(heap, labs(x - y));
