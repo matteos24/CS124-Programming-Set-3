@@ -371,8 +371,9 @@ int64_t pre_partition_simulated_annealing(int64_t *arr, int n, int max_iter) {
   int64_t test_residue;
   int64_t test_residue2;
   int64_t *second_converted_array = malloc(n * sizeof(int64_t));
-  int64_t *third_converted_array = malloc(n * sizeof(int64_t));
-
+  int64_t *third_converted_array;
+  third_converted_array = conversion(sol2, arr, n);
+  test_residue2 = karmakar_karp(third_converted_array, n);
   for (int i = 0; i < max_iter; i++) {
     memcpy(sol1, sol, n * sizeof(int));
     index1 = (rand() % (n));
@@ -394,16 +395,19 @@ int64_t pre_partition_simulated_annealing(int64_t *arr, int n, int max_iter) {
                probability(residue, test_residue, i)) {
       residue = test_residue;
       sol[index1] = sol1[index1];
+    } else {
+      continue;
     }
 
     free(converted_array);
     converted_array = conversion(sol, arr, n);
     residue = karmakar_karp(converted_array, n);
-    free(third_converted_array);
-    third_converted_array = conversion(sol2, arr, n);
-    test_residue2 = karmakar_karp(third_converted_array, n);
+
     if (residue < test_residue2) {
       memcpy(sol2, sol, n * sizeof(int));
+      free(third_converted_array);
+      third_converted_array = conversion(sol2, arr, n);
+      test_residue2 = karmakar_karp(third_converted_array, n);
     }
   }
 
