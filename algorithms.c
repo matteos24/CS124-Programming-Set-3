@@ -107,7 +107,7 @@ int main(void) {
     printf("This is iteration %i\n", i);
 
     for (int k = 0; k < 7; k++) {
-      fprintf(results_file, "%ld", result_array[k]);
+      fprintf(results_file, "%lld", result_array[k]);
       if (k != 6)
         fprintf(results_file, ",");
     }
