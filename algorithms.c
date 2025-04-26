@@ -59,7 +59,7 @@ int main(void) {
     printf("This is iteration %i\n", i);
 
     start = clock();
-    result = repeated_random(test_array, 100, 25000);
+    result = repeated_random(test_array, 100, 100000);
     end = clock();
     elapsed_time = (double)(end - start) / CLOCKS_PER_SEC;
     result_array[1] = result;
@@ -67,7 +67,7 @@ int main(void) {
     printf("This is iteration %i\n", i);
 
     start = clock();
-    result = hill_climbing(test_array, 100, 25000);
+    result = hill_climbing(test_array, 100, 100000);
     end = clock();
     elapsed_time = (double)(end - start) / CLOCKS_PER_SEC;
     result_array[2] = result;
@@ -75,7 +75,7 @@ int main(void) {
     printf("This is iteration %i\n", i);
 
     start = clock();
-    result = simulated_annealing(test_array, 100, 25000);
+    result = simulated_annealing(test_array, 100, 100000);
     end = clock();
     elapsed_time = (double)(end - start) / CLOCKS_PER_SEC;
     result_array[3] = result;
@@ -83,7 +83,7 @@ int main(void) {
     printf("This is iteration %i\n", i);
 
     start = clock();
-    result = pre_partition_repeated_random(test_array, 100, 25000);
+    result = pre_partition_repeated_random(test_array, 100, 100000);
     end = clock();
     elapsed_time = (double)(end - start) / CLOCKS_PER_SEC;
     result_array[4] = result;
@@ -91,7 +91,7 @@ int main(void) {
     printf("This is iteration %i\n", i);
 
     start = clock();
-    result = pre_partition_hill_climbing(test_array, 100, 25000);
+    result = pre_partition_hill_climbing(test_array, 100, 100000);
     end = clock();
     elapsed_time = (double)(end - start) / CLOCKS_PER_SEC;
     result_array[5] = result;
@@ -99,7 +99,7 @@ int main(void) {
     printf("This is iteration %i\n", i);
 
     start = clock();
-    result = pre_partition_simulated_annealing(test_array, 100, 25000);
+    result = pre_partition_simulated_annealing(test_array, 100, 100000);
     end = clock();
     elapsed_time = (double)(end - start) / CLOCKS_PER_SEC;
     result_array[6] = result;
