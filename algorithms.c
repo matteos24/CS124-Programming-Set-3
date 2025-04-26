@@ -25,6 +25,7 @@ int64_t random_1_to_10_12();
 
 int main(void) {
 
+  srand(time(NULL));
   int64_t *test_array = malloc(100 * sizeof(int64_t));
   int64_t *result_array = malloc(7 * sizeof(int64_t));
   double *runtime_array = malloc(7 * sizeof(double));
@@ -106,7 +107,7 @@ int main(void) {
     printf("This is iteration %i\n", i);
 
     for (int k = 0; k < 7; k++) {
-      fprintf(results_file, "%lld", result_array[k]);
+      fprintf(results_file, "%ld", result_array[k]);
       if (k != 6)
         fprintf(results_file, ",");
     }
@@ -128,7 +129,6 @@ int main(void) {
   free(result_array);
   free(runtime_array);
 
-  srand(time(NULL));
   printf("%f\n", random_1_to_10_12() / (pow(10.0, 12.0)));
 }
 
@@ -137,14 +137,13 @@ int64_t karmakar_karp(int64_t *arr, int n) {
   for (int i = 0; i < n; i++) {
     insert(heap, arr[i]);
   }
-  int i = 0;
   while (heap->size > 1) {
     int64_t x = extractMax(heap);
     int64_t y = extractMax(heap);
-    insert(heap, labs(x - y));
+    insert(heap, llabs(x - y));
   }
 
-  int64_t result = labs(peekMax(heap));
+  int64_t result = llabs(peekMax(heap));
   freeHeap(heap);
   return result;
 }
@@ -162,7 +161,7 @@ int64_t repeated_random(int64_t *arr, int n, int max_iter) {
     }
   }
 
-  int64_t residue = labs(dot_product(arr, sol, n));
+  int64_t residue = llabs(dot_product(arr, sol, n));
   int64_t test_residue;
 
   for (int i = 0; i < max_iter; i++) {
@@ -175,7 +174,7 @@ int64_t repeated_random(int64_t *arr, int n, int max_iter) {
       }
     }
 
-    test_residue = labs(dot_product(arr, sol, n));
+    test_residue = llabs(dot_product(arr, sol, n));
     if (test_residue < residue) {
       residue = test_residue;
     }
@@ -200,7 +199,7 @@ int64_t hill_climbing(int64_t *arr, int n, int max_iter) {
     sol1[j] = sol[j];
   }
 
-  int64_t residue = labs(dot_product(arr, sol, n));
+  int64_t residue = llabs(dot_product(arr, sol, n));
   int64_t test_residue;
 
   for (int i = 0; i < max_iter; i++) {
@@ -213,7 +212,7 @@ int64_t hill_climbing(int64_t *arr, int n, int max_iter) {
       sol1[index2] = -sol[index2];
     }
 
-    test_residue = labs(dot_product(arr, sol1, n));
+    test_residue = llabs(dot_product(arr, sol1, n));
     if (test_residue < residue) {
       residue = test_residue;
       sol[index1] = sol1[index1];
@@ -244,14 +243,12 @@ int64_t simulated_annealing(int64_t *arr, int n, int max_iter) {
     sol2[j] = sol[j];
   }
 
-  int64_t residue = labs(dot_product(arr, sol, n));
+  int64_t residue = llabs(dot_product(arr, sol, n));
   int64_t test_residue;
   int64_t test_residue_new;
-  int64_t test_residue_new2;
 
   for (int i = 0; i < max_iter; i++) {
     memcpy(sol1, sol, n * sizeof(int));
-    memcpy(sol2, sol, n * sizeof(int));
     int index1 = rand() % (n);
     int index2 = rand() % (n);
 
@@ -260,7 +257,7 @@ int64_t simulated_annealing(int64_t *arr, int n, int max_iter) {
       sol1[index2] = -sol[index2];
     }
 
-    test_residue = labs(dot_product(arr, sol1, n));
+    test_residue = llabs(dot_product(arr, sol1, n));
     if (test_residue < residue) {
       residue = test_residue;
       sol[index1] = sol1[index1];
@@ -271,20 +268,19 @@ int64_t simulated_annealing(int64_t *arr, int n, int max_iter) {
       sol[index1] = sol1[index1];
       sol[index2] = sol1[index2];
     }
-    residue = labs(dot_product(arr, sol, n));
-    test_residue_new2 = labs(dot_product(arr, sol2, n));
+    residue = llabs(dot_product(arr, sol, n));
+    test_residue_new = llabs(dot_product(arr, sol2, n));
 
-    if (residue < test_residue_new2) {
-      sol2[index1] = sol[index1];
-      sol2[index2] = sol[index2];
+    if (residue < test_residue_new) {
+      memcpy(sol2, sol, n * sizeof(int));
     }
   }
 
-  test_residue_new2 = labs(dot_product(arr, sol2, n));
+  test_residue_new = llabs(dot_product(arr, sol2, n));
   free(sol);
   free(sol1);
   free(sol2);
-  return test_residue_new2;
+  return test_residue_new;
 }
 
 int64_t pre_partition_repeated_random(int64_t *arr, int n, int max_iter) {
@@ -340,6 +336,7 @@ int64_t pre_partition_hill_climbing(int64_t *arr, int n, int max_iter) {
     }
 
     sol1[index1] = index2;
+    free(second_converted_array);
     second_converted_array = conversion(sol1, arr, n);
     test_residue = karmakar_karp(second_converted_array, n);
 
@@ -378,7 +375,6 @@ int64_t pre_partition_simulated_annealing(int64_t *arr, int n, int max_iter) {
 
   for (int i = 0; i < max_iter; i++) {
     memcpy(sol1, sol, n * sizeof(int));
-    memcpy(sol2, sol, n * sizeof(int));
     index1 = (rand() % (n));
     index2 = (rand() % (n));
 
@@ -388,6 +384,7 @@ int64_t pre_partition_simulated_annealing(int64_t *arr, int n, int max_iter) {
     }
 
     sol1[index1] = index2;
+    free(second_converted_array);
     second_converted_array = conversion(sol1, arr, n);
     test_residue = karmakar_karp(second_converted_array, n);
     if (test_residue < residue) {
@@ -399,16 +396,18 @@ int64_t pre_partition_simulated_annealing(int64_t *arr, int n, int max_iter) {
       sol[index1] = sol1[index1];
     }
 
+    free(converted_array);
     converted_array = conversion(sol, arr, n);
     residue = karmakar_karp(converted_array, n);
+    free(third_converted_array);
     third_converted_array = conversion(sol2, arr, n);
     test_residue2 = karmakar_karp(third_converted_array, n);
-
     if (residue < test_residue2) {
-      sol2[index1] = sol[index1];
+      memcpy(sol2, sol, n * sizeof(int));
     }
   }
 
+  free(third_converted_array);
   third_converted_array = conversion(sol2, arr, n);
   test_residue2 = karmakar_karp(third_converted_array, n);
   free(sol);
